@@ -31,7 +31,13 @@ class SessionData(object):
         """   
         self.data = json.loads(raw)["Messages"].pop()["Args"][0] #Navigates raw json to retrive relevant data, see refrence in documentation
         
+        self.sessionType = self.getSessionType()
+        self.winType = self.getWinType()
+        self.running = self.getRunning()
+        self.lapsLeft = self.getLapsLeft()
+
         self.getRacers()
+        self.dump(self.racersByName)
         
     
     

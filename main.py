@@ -12,7 +12,7 @@ from segementEmulator import Display
 
 
 period = timedelta(seconds = 1, microseconds = 200000)          #Total time between requests
-name = "jake mason".lower()                                   #Name of racer to be tracked
+name = "leon blake".lower()                                   #Name of racer to be tracked
 raw = GetData().data                                            #object containing raw json in form of a string
 startTime = datetime.now()
 errDisp = Display("Error:")                                     #Setting up display objects
@@ -44,7 +44,7 @@ if session.running:                                             #See if session 
         session.dump(racer)                                     #For debuging purpuses
 else:
     
-    errDisp.print("403")
+    errDisp.print("408")
     Log(False, "No Session Running")
 
 startTime = datetime.now()                                      #Starting point of refresh timer
