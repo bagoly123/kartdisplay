@@ -40,7 +40,7 @@ class SessionData(object):
         self.lapsLeft = self.getLapsLeft()
 
         self.getRacers()
-        self.dump(self.racersByName)
+        self.dump(self.racersByName)                            #For debug/loging purpuses
         
     
     
@@ -126,8 +126,9 @@ class SessionData(object):
     @staticmethod
     def getData(n=10):
         """
-        Downloads raw data
-            :param n=10: int       optional parameter to set number of tries before error message 
+        Downloads raw data json using POST request
+            :param n=10: int       optional parameter to set number of tries before error message
+            :return: dict          json formated so python can handle it
         """       
         url = "https://rwdevon.clubspeedtiming.com/SP_Center/signalr"                                          #URL for POST request
     
@@ -155,7 +156,10 @@ class SessionData(object):
     
     @staticmethod
     def getDebugData():
-        
+        """
+        Returns archived session data for debug mode
+        :return: dict       json formated so python can handle it
+        """   
         with open("debugData.txt", "r") as file:
             return file.read()
     

@@ -75,6 +75,7 @@ __Debug mode__ can be toggled on or of via a bool value at the top of main. If s
 | 0 | 
 | --------- |
 | [Racer] |
+
 ScoreboardData has an undefined length, based on the number of racers
 
 ### Racer (dict)

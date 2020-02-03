@@ -12,7 +12,7 @@ debugMode = False
 period = timedelta(seconds = 1, microseconds = 200000)          #Total time between requests
 
 
-if debugMode:
+if debugMode:                                                   #Check if porgram is in Debug mode, if yes, assign set constant values for name and raw
     raw = SessionData.getDebugData()
     name = "barry fox"#Constant, Do no change!
 else:
@@ -57,7 +57,7 @@ while True:
     #print (datetime.now() - startTime)
     if (datetime.now() - startTime) >= period:                  #Check if enough time has passed to get session updates
         
-        if debugMode:
+        if debugMode:                                           #Check if porgram is in Debug mode, if yes, assign set constant values for name and raw
             raw = SessionData.getDebugData()
         else:
             raw = SessionData.getData()                         #update raw with fresh data
