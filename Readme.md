@@ -4,6 +4,8 @@ __main__ is the core application and the one that should be executed
 
 __Requests__ Library is __**REQUIRED**__, [installation guide]
 
+__Debug mode__ can be toggled on or of via a bool value at the top of main. If set to True, it will use archived data from an old session. This is for testing functionality.
+
 | __Error Code__ | __Meaning__ |
 | -------------- | ----------- |
 | 404 | Racer not in session|
@@ -15,6 +17,8 @@ __Requests__ Library is __**REQUIRED**__, [installation guide]
     As of version 3.3, a segment emulator is being used as the python 3.7 version of the MAX7219 chip library is not compatible with the chips seven segment driver mode. This is to be replaced in a future version with the implementation of support for my custom hardware. Alternatively I wil make a library for the chip myself.
 
 ## Change Log:
+    V3.5
+    GetData class Removed, replaced by a static method in SessionData class. Added debug mode. Another Error typo fixed. Bug where exception would be raised if the racer left the session after initialision of main has been fixed.
 
     V3.4
     Simplifeied json browser in process.py, functionally its the same. Fixed bug where racer lap wouldnt update. Added aditional comments.

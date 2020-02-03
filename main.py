@@ -2,18 +2,23 @@
 
 from process import SessionData
 from log import Log
-from download import GetData
-from requests import post                                       #External lib "Request" Required
 from datetime import datetime,timedelta
 from segementEmulator import Display
 
 
-
+debugMode = False
 
 
 period = timedelta(seconds = 1, microseconds = 200000)          #Total time between requests
-name = "leon blake".lower()                                   #Name of racer to be tracked
-raw = GetData().data                                            #object containing raw json in form of a string
+
+
+if debugMode:
+    raw = SessionData.getDebugData()
+    name = "barry fox"#Constant, Do no change!
+else:
+    name = "leon blake".lower()                                   #Name of racer to be tracked
+    raw = SessionData.getData()                                 #object containing raw json in form of a string
+
 startTime = datetime.now()
 errDisp = Display("Error:")                                     #Setting up display objects
 bTimeDisp = Display("Best Time:")
@@ -23,7 +28,7 @@ timeDisp = Display("Last Time:")
 while isinstance(raw, int):                                     #check if raw object returned error
     
     if (datetime.now() - startTime) >= period:                  #if raw object returned an error, periodicall try again until it doesnt
-        raw = GetData().data
+        raw = SessionData.getData()
         errDisp.print("444")
         startTime = datetime.now()
 
@@ -41,7 +46,6 @@ if session.running:                                             #See if session 
         timeDisp.print(racer["LTime"])
         bTimeDisp.print(racer["BestLTime"])
         
-        session.dump(racer)                                     #For debuging purpuses
 else:
     
     errDisp.print("408")
@@ -53,14 +57,18 @@ while True:
     #print (datetime.now() - startTime)
     if (datetime.now() - startTime) >= period:                  #Check if enough time has passed to get session updates
         
-        raw = GetData().data                                    #update raw with fresh data
+        if debugMode:
+            raw = SessionData.getDebugData()
+        else:
+            raw = SessionData.getData()                         #update raw with fresh data
+        
         startTime = datetime.now()                              #reset refresh timer
         
         while isinstance(raw, int):                             #check if raw object returned error
     
             if (datetime.now() - startTime) >= period:          #if raw object returned an error, periodicall try again until it doesnt
                 errDisp.print("444")
-                raw = GetData().data
+                raw = SessionData.getData()
                 startTime = datetime.now()
 
         session.update(raw)                                    #Update session object with new data
@@ -68,13 +76,17 @@ while True:
         
         if not session.running:                                 #Check if session is still running
             
-            errDisp.print("403")
+            errDisp.print("408")
             Log(False, "No Session Running")
         else:
             racer = session.getRacerByName(name)
-            if racer["LapNum"] != lastLap:                  #Check if a new lap has started, this is to avoid updating the display more than neccesary
-                lastLap = racer["LapNum"]
-                timeDisp.print(racer["LTime"])              #Display data
-                bTimeDisp.print(racer["BestLTime"])
-                
-                session.dump(racer)                         #For debuging purpuses
+            
+            if isinstance(racer, int):                                  #Check if session object returned an error
+        
+                errDisp.print("404")
+                Log(False, "Racer Not In Sesson")
+            else:
+                if racer["LapNum"] != lastLap:                  #Check if a new lap has started, this is to avoid updating the display more than neccesary
+                    lastLap = racer["LapNum"]
+                    timeDisp.print(racer["LTime"])              #Display data
+                    bTimeDisp.print(racer["BestLTime"])

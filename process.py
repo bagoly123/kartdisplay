@@ -1,7 +1,8 @@
 #Process.py
 
 import json
-from download import GetData
+from requests import post                                       #External lib "Request" Required
+from log import Log
 
 class SessionData(object):
     
@@ -20,6 +21,8 @@ class SessionData(object):
         self.winType = self.getWinType()
         self.running = self.getRunning()
         self.lapsLeft = self.getLapsLeft()
+        
+        
 
         
     def update(self, raw):
@@ -119,6 +122,42 @@ class SessionData(object):
             :return: int OR (datetime)?
         """   
         return self.data["LapsLeft"]
+    
+    @staticmethod
+    def getData(n=10):
+        """
+        Downloads raw data
+            :param n=10: int       optional parameter to set number of tries before error message 
+        """       
+        url = "https://rwdevon.clubspeedtiming.com/SP_Center/signalr"                                          #URL for POST request
+    
+        data = {                                                                                               #Payload for POST request
+            "clientId":         "c74bf7d5-4187-4bf1-8c9a-0f396ab32d02",
+            "messageId":        "3030",
+            "connectionData":   "[{\"name\":\"SP_Center.ScoreBoardHub\",\"methods\":[\"refreshGrid\"]}]",
+            "transport":        "longPolling",
+            "groups":           "SP_Center.ScoreBoardHub.1"
+            }
+        
+        for i in range(n):
+        
+            try:
+            
+                response = post(url = url, data = data)                                              #Post request data stored in response object
+            except Exception as e:                                                                            #If request throws conncetion error exceptin, catch and log, return error
+                
+                if i == n-1:
+                    Log(True, e)
+                    return 408
+        
+            else:
+                return response.text
+    
+    @staticmethod
+    def getDebugData():
+        
+        with open("debugData.txt", "r") as file:
+            return file.read()
     
     @staticmethod
     def dump(dict):
