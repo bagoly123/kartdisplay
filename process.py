@@ -128,7 +128,7 @@ class SessionData(object):
         """
         Downloads raw data json using POST request
             :param n=10: int       optional parameter to set number of tries before error message
-            :return: dict          json formated so python can handle it
+            :return: dict or int   json formated so python can handle it
         """       
         url = "https://rwdevon.clubspeedtiming.com/SP_Center/signalr"                                          #URL for POST request
     

@@ -16,7 +16,7 @@ if debugMode:                                                   #Check if porgra
     raw = SessionData.getDebugData()
     name = "barry fox"#Constant, Do no change!
 else:
-    name = "leon blake".lower()                                   #Name of racer to be tracked
+    name = "ben fekete".lower()                                   #Name of racer to be tracked
     raw = SessionData.getData()                                 #object containing raw json in form of a string
 
 startTime = datetime.now()
@@ -41,6 +41,7 @@ if session.running:                                             #See if session 
         
         errDisp.print("404")
         Log(False, "Racer Not In Sesson")
+        lastLap = 0
     else:
         lastLap = racer["LapNum"]                               #Store current lap in "lastLap" and display data
         timeDisp.print(racer["LTime"])
