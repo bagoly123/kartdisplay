@@ -149,7 +149,7 @@ class SessionData(object):
             except Exception as e:                                                                            #If request throws conncetion error exceptin, catch and log, return error
                 
                 if i == n-1:
-                    if logging:
+                    if self.logging:
                         Log(True, e)
                     return 408
         

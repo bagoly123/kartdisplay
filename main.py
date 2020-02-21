@@ -7,8 +7,8 @@ from segementEmulator import Display
 
 
 #Globals
-debugMode = False
 name = "Tony Hill"
+debugMode = False
 logging = True
 
 
