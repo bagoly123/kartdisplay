@@ -3,10 +3,9 @@
 import json
 from requests import post                                       #External lib "Request" Required
 from log import Log
-
 class SessionData(object):
     
-    def __init__(self, raw):
+    def __init__(self, raw, logging):
         """
         Init
             :param self:
@@ -14,6 +13,7 @@ class SessionData(object):
         """
         self.racersByName = {}                                  #All racers in session sorted by name
         self.racersByNum = {}                                   #          -           sorted by kart number
+        self.logging = logging
         
         self.update(raw)
         
@@ -40,7 +40,8 @@ class SessionData(object):
         self.lapsLeft = self.getLapsLeft()
 
         self.getRacers()
-        self.dump(self.racersByName)                            #For debug/loging purpuses
+        if self.logging:
+            self.dump(self.racersByName)                            #For debug/loging purpuses
         
     
     
@@ -148,7 +149,8 @@ class SessionData(object):
             except Exception as e:                                                                            #If request throws conncetion error exceptin, catch and log, return error
                 
                 if i == n-1:
-                    Log(True, e)
+                    if logging:
+                        Log(True, e)
                     return 408
         
             else:
