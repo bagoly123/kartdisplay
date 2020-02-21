@@ -52,7 +52,7 @@ def getRaw(mode):
         return SessionData.getDebugData()
     else:
         name = name.lower()                                         #Format name for easy confirmation later
-        return SessionData.getData()
+        return SessionData.getData(logging)
     
 def updateRaw():
     """
@@ -65,7 +65,7 @@ def updateRaw():
     while isinstance(raw, int):                                     #check if raw object returned error
     
         if (datetime.now() - startTime) >= period:                  #if raw object returned an error, periodicall try again until it doesnt
-            raw = SessionData.getData()
+            raw = SessionData.getData(logging)
             errDisp.print("444")
             startTime = datetime.now()
     

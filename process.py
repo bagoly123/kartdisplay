@@ -125,7 +125,7 @@ class SessionData(object):
         return self.data["LapsLeft"]
     
     @staticmethod
-    def getData(n=10):
+    def getData(logging, n=10):
         """
         Downloads raw data json using POST request
             :param n=10: int       optional parameter to set number of tries before error message
@@ -149,7 +149,7 @@ class SessionData(object):
             except Exception as e:                                                                            #If request throws conncetion error exceptin, catch and log, return error
                 
                 if i == n-1:
-                    if self.logging:
+                    if logging:
                         Log(True, e)
                     return 408
         
