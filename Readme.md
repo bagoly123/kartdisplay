@@ -1,5 +1,7 @@
 # Kart Display Read Me
 
+[__Progress Board__]
+
 __main__ is the core application and the one that should be executed
 
 __Requests__ Library is __**REQUIRED**__, [installation guide]
@@ -94,4 +96,5 @@ Same as ScoreboardData, when a session ends top 3 Racer tables moved into Winner
 
 
 [installation guide]: https://realpython.com/python-requests/
+[__Progress Board__]: https://trello.com/b/zn23pVez/gokart-display
 
