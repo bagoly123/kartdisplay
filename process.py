@@ -39,6 +39,9 @@ class SessionData(object):
         self.running = self.getRunning()
         self.lapsLeft = self.getLapsLeft()
 
+        self.racersByName = {}                                      #Clear racers from dicts as to stop overflow of racers from previous sessions.
+        self.racersByNum = {}
+        
         self.getRacers()
         if self.logging:
             self.dump(self.racersByName)                            #For debug/loging purpuses
